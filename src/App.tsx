@@ -19,15 +19,7 @@ function App() {
   //   getData()
   // },[])
 
-  // const onHandleRemove = (id) => {
-  //   if(confirm("Ban co chac chan muon xoa khong?")){
-  //     fetch(`http://localhost:3000/products/${id}`,{
-  //       method: 'DELETE'
-  //     })
-  //     const newProductList = products.filter((item)=> item.id != id)
-  //     setProduct(newProductList)
-  //   }
-  // }
+  
 
   // const {register, handleSubmit, reset } = useForm()
   // const onHandleSubmit = async(data) => {
@@ -58,11 +50,21 @@ function App() {
     getData()
   },[])
 
+  const onHandleRemove = (id:any) => {
+    if(confirm("Ban co chac chan muon xoa khong?")){
+      fetch(`http://localhost:3000/products/${id}`,{
+        method: 'DELETE'
+      })
+      const newProductList = products.filter((item)=> item.id != id)
+      setProducts(newProductList)
+    }
+  }
+
   return (
     <>
       <Routes>
         <Route path='/admin' element={<Dashboard/>}/>
-        <Route path='/admin/product' element={<ProductManagement products={products}/>}/>
+        <Route path='/admin/product' element={<ProductManagement products={products} onHandleRemove={onHandleRemove}/>}/>
         <Route path='/admin/product/add' element={<AddProduct/>}/>
       </Routes>
     </>

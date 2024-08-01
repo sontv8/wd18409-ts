@@ -1,6 +1,7 @@
 const ProductManagement = (props:any) => {
-    const {products} = props
-    console.log(products);
+    // console.log(props.onHandleRemove);
+    
+    const {products, onHandleRemove} = props
     
     return (
         <div>
@@ -14,7 +15,17 @@ const ProductManagement = (props:any) => {
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {products.map((item:any,index:any) => {
+                        return (
+                            <tr key={item.id}>
+                                <td>{index + 1}</td>
+                                <td>{item.name}</td>
+                                <td>
+                                    <button onClick={() => onHandleRemove(item.id)}>Delete</button>
+                                </td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
         </div>
