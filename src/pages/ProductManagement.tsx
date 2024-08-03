@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom"
+
 const ProductManagement = (props:any) => {
     // console.log(props.onHandleRemove);
     
@@ -22,6 +24,8 @@ const ProductManagement = (props:any) => {
                                 <td>{item.name}</td>
                                 <td>
                                     <button onClick={() => onHandleRemove(item.id)}>Delete</button>
+                                    <Link to={`/admin/product/update/${item.id}`}><button>Update</button></Link>
+                                    
                                 </td>
                             </tr>
                         )

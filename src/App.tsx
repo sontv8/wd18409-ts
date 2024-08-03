@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import ProductManagement from './pages/ProductManagement'
 import AddProduct from './pages/AddProduct'
+import UpdateProduct from './pages/UpdateProduct'
 
 function App() {
 
@@ -39,6 +40,19 @@ function App() {
       },
       body:JSON.stringify(data)
     })
+  }
+
+  const onHandleUpdate = (data) => {
+    fetch(`http://localhost:3000/products/${data.id}`,{
+      method:"PUT",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(data)
+    })
+    
+    const newProductList = products.map((item)=> item.id == data.id ? data : item)
+    setProducts(newProductList)
     
   }
 
@@ -48,6 +62,7 @@ function App() {
         <Route path='/admin' element={<Dashboard/>}/>
         <Route path='/admin/product' element={<ProductManagement products={products} onHandleRemove={onHandleRemove}/>}/>
         <Route path='/admin/product/add' element={<AddProduct onHandleSubmit={onHandleSubmit}/>}/>
+        <Route path='/admin/product/update/:id' element={<UpdateProduct onHandleUpdate={onHandleUpdate} products={products}/>}/>
       </Routes>
     </>
   )
