@@ -1,6 +1,15 @@
 import {Link} from "react-router-dom"
 
-const ProductManagement = (props:any) => {
+interface IProduct{
+    id:string,
+    name:string
+}
+interface IProductProps{
+    products:IProduct[],
+    onHandleRemove: (id:string) => void
+}
+
+const ProductManagement = (props:IProductProps) => {
     // console.log(props.onHandleRemove);
     
     const {products, onHandleRemove} = props
@@ -17,7 +26,7 @@ const ProductManagement = (props:any) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((item:any,index:any) => {
+                    {products.map((item,index) => {
                         return (
                             <tr key={item.id}>
                                 <td>{index + 1}</td>

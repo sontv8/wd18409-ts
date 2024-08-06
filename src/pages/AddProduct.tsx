@@ -1,12 +1,22 @@
 import {useForm, SubmitHandler} from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-const AddProduct = (props) => {
+interface IProduct{
+  name:string
+}
+interface IProductProps{
+  onHandleSubmit: (data:IProduct) => void
+}
+interface FormData{
+  name:string
+}
+
+const AddProduct = (props:IProductProps) => {
     const {onHandleSubmit} = props
     
     const navigate = useNavigate()
-    const {register, handleSubmit, reset } = useForm()
-    const onAdd = (data) => {
+    const {register, handleSubmit, reset } = useForm<FormData>()
+    const onAdd = (data:IProduct) => {
         onHandleSubmit(data)
         navigate("/admin/product")
     }

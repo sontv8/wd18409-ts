@@ -2,22 +2,37 @@ import { useEffect } from 'react'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const UpdateProduct = (props) => {
+interface IProduct{
+    id:string, 
+    name:string
+}
+interface IProductProps {
+    products: IProduct[],
+    onHandleUpdate: (data:IProduct) => void
+}
+
+interface FormData{
+    name:string
+}
+
+const UpdateProduct = (props: IProductProps) => {
     const {onHandleUpdate, products} = props
     
-    const {id} = useParams();
+    const {id} = useParams<{id:string}>();
     
     const navigate = useNavigate()
-    const {register, handleSubmit, reset } = useForm()
+    const {register, handleSubmit, reset } = useForm<FormData>()
 
     useEffect(()=>{
         const currentProduct = products.find((item) => item.id == id)
         reset(currentProduct);
     },[])
 
-    const onUpdate = (data) => {
-        onHandleUpdate({id, ...data})
-        navigate("/admin/product")
+    const onUpdate: SubmitHandler<FormData> = (data) => {
+        if(id){
+            onHandleUpdate({id, ...data})
+            navigate("/admin/product")
+        }
     }
   return (
     <div>
